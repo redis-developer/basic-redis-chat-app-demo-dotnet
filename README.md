@@ -1,24 +1,5 @@
-# Basic Redis Chat App Demo
-
-Showcases how to impliment chat app in ASP.NET Core, SignalR and Redis.
-
-## Try it out
-
-#### Deploy to Heroku
-
-<p>
-    <a href="https://heroku.com/deploy" target="_blank">
-        <img src="https://www.herokucdn.com/deploy/button.svg" alt="Deploy to Heorku" />
-    </a>
-</p>
-
-#### Deploy to Google Cloud
-
-<p>
-    <a href="https://deploy.cloud.run" target="_blank">
-        <img src="https://deploy.cloud.run/button.svg" alt="Run on Google Cloud" width="150px"/>
-    </a>
-</p>
+# Basic Redis Chat App Demo .Net Core 5
+Showcases how to impliment chat app in ASP.NET Core, SignalR and Redis. This example uses **pub/sub** feature combined with **server-side events** for implementing the message communication between client and server.
 
 ## How it works?
 
@@ -28,7 +9,7 @@ Showcases how to impliment chat app in ASP.NET Core, SignalR and Redis.
 
 Redis is used mainly as a database to keep the user/messages data and for sending messages between connected servers.
 
-The real-time functionality is handled by **SignalR** for server-client messaging. Additionally each server instance subscribes to the `MESSAGES` channel of pub/sub and dispatches messages once they arrive.
+The real-time functionality is handled by **Server Sent Events** for server->client messaging. Additionally each server instance subscribes to the `MESSAGES` channel of pub/sub and dispatches messages once they arrive.
 
 - The chat data is stored in various keys and various data types.
   - User data is stored in a hash set where each user entry contains the next values:
@@ -54,7 +35,14 @@ The real-time functionality is handled by **SignalR** for server-client messagin
 - Get room ids of a user: `SMEMBERS user:{id}:rooms`
 - Get list of messages `ZREVRANGE room:{roomId} {offset_start} {offset_end}`
 
+
 ## How to run it locally?
+
+#### Write in environment variable or Dockerfile actual connection to Redis:
+```
+   REDIS_ENDPOINT_URL = "Redis server URI"
+   REDIS_PASSWORD = "Password to the server"
+```
 
 #### Run frontend
 

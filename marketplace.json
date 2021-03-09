@@ -1,6 +1,6 @@
 {
-  "app_name": "Basic ASP.NET Core Redis chat",
-  "description": "Showcases how to impliment chat app in .NET, Redis and SignalR",
+  "app_name": "Basic .Net Core Redis chat",
+  "description": "Showcases how to impliment chat app in .NET Core, SignalR and Redis",
   "type": "App",
   "contributed_by": "Redis Labs",
   "repo_url": "https://github.com/redis-developer/basic-redis-chat-app-demo-dotnet",
@@ -8,16 +8,10 @@
   "hosted_url": "",
   "quick_deploy": "true",
   "deploy_buttons": [
-    {
-      "heroku": "https://heroku.com/deploy?template=https://github.com/redis-developer/basic-redis-chat-app-demo-dotnet"
-    },
-    {
-      "Google": "https://deploy.cloud.run/?git_repo=https://github.com/redis-developer/basic-redis-chat-app-demo-dotnet.git"
-    }
+    
   ],
-  "language": ["C#"],
-  "redis_commands": [
-    "AUTH",
+  "language": ["C#", "JavaScript", "HTML", "CSS"],
+  "redis_commands": ["AUTH",
     "INCR",
     "DECR",
     "HMSET",
@@ -34,15 +28,14 @@
     "SMEMBERS",
     "SREM",
     "PUBLISH",
-    "SUBSCRIBE"
-  ],
+    "SUBSCRIBE"],
   "redis_features": ["PubSub"],
   "redis_modules": [],
   "app_image_urls": [
-    "https://github.com/redis-developer/basic-redis-chat-app-demo-dotnet/blob/main/docs/screenshot001.png?raw=true"
+    "https://raw.githubusercontent.com/redis-developer/basic-redis-chat-app-demo-dotnet/main/docs/screenshot001.png"
   ],
   "youtube_url": "",
   "special_tags": [],
   "verticals": [],
-  "markdown": "https://github.com/redis-developer/basic-redis-chat-app-demo-dotnet/main/README.md"
+  "markdown": "https://raw.githubusercontent.com/redis-developer/basic-redis-chat-app-demo-dotnet/main/README.md"
 }

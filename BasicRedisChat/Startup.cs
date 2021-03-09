@@ -32,7 +32,6 @@ namespace BasicRedisChat
 
         public IConfiguration Configuration { get; }
 
-        // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
 
@@ -45,10 +44,6 @@ namespace BasicRedisChat
                 c.IncludeXmlComments(xmlPath);
             });
 
-            Environment.SetEnvironmentVariable("REDIS_PASSWORD", "redadsQWE213d");
-
-
-            // We use environment variables to pass the redis connection data.
             ConnectionMultiplexer redis = null;
             string redisConnectionUrl = null;
             {
@@ -68,17 +63,8 @@ namespace BasicRedisChat
                 redis = ConnectionMultiplexer.Connect(redisConnectionUrl);
 
                 services.AddSingleton<IConnectionMultiplexer>(redis);
-            }
+            }            
 
-            // Inject a redis client for the controllers. (Database access).
-            /*services.AddSingleton<IRedisService>(serviceProvider =>
-            {
-                //return new RedisService(redis, serviceProvider.GetRequiredService<IHubContext<ChatHub>>());
-            });*/
-
-            
-
-            // That might be unnecessary for this scope.
             services
                 .AddDataProtection()
                 .PersistKeysToStackExchangeRedis(redis, "DataProtectionKeys");
@@ -101,14 +87,12 @@ namespace BasicRedisChat
 
             services.AddHttpContextAccessor();
 
-            // Add a file provider for links controller.
             services.AddSingleton<IFileProvider>(new PhysicalFileProvider(Directory.GetCurrentDirectory()));
 
             services.AddSignalR();
 
         }
 
-        // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
             if (env.IsDevelopment())
