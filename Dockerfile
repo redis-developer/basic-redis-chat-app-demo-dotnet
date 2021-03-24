@@ -3,6 +3,7 @@ WORKDIR /app
 EXPOSE 5000
 EXPOSE 443
 
+ENV PORT "5000"
 ENV REDIS_ENDPOINT_URL = "Redis server URI"
 ENV REDIS_PASSWORD = "Password to the server"
 
