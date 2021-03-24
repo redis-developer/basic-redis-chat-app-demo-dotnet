@@ -136,7 +136,7 @@ dotnet run
 
 <p>
 
-<a href="https://vercel.com/new/git/external?repository-url=https%3A%2F%2Fgithub.com%2Fredis-developer%2Fredis-developer%2Fbasic-redis-chat-app-demo-dotnet%26env%3DREDIS_ENDPOINT_URL%2CREDIS_PASSWORD%2CPORT" target="_blank">
+<a href="https://vercel.com/new/git/external?repository-url=https%3A%2F%2Fgithub.com%2Fredis-developer%2Fbasic-redis-chat-app-demo-dotnet&env=REDIS_ENDPOINT_URL,REDIS_PASSWORD,PORT" target="_blank">
         <img src="https://vercel.com/button" alt="Deploy with Vercel" width="150px" height="41"/>
     </a>
 </p>
