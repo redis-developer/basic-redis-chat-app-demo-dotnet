@@ -1,9 +1,9 @@
 FROM mcr.microsoft.com/dotnet/aspnet:5.0-buster-slim AS base
 WORKDIR /app
-EXPOSE 5000
-EXPOSE 443
 
-ENV PORT = 5000
+EXPOSE 80
+
+ENV PORT = 80
 ENV REDIS_ENDPOINT_URL = "Redis server URI"
 ENV REDIS_PASSWORD = "Password to the server"
 
@@ -21,6 +21,6 @@ RUN dotnet publish "BasicRedisChat.csproj" -c Release -o /app
 FROM base AS final
 WORKDIR /app
 COPY --from=publish /app .
-COPY --from=publish /app/client/build ./client/build
+COPY --from=build /src/BasicRedisChat/client/build ./client/build
 
 ENTRYPOINT ["dotnet", "BasicRedisChat.dll"]

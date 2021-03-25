@@ -12,7 +12,7 @@
         },
         "PORT": {
             "description": "Public port",
-            "value": 5000
+            "value": 80
         }
     }
 }
