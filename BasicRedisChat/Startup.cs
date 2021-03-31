@@ -35,8 +35,6 @@ namespace BasicRedisChat
         public void ConfigureServices(IServiceCollection services)
         {
 
-            Environment.SetEnvironmentVariable("REDIS_ENDPOINT_URL", "redis-16315.c256.us-east-1-2.ec2.cloud.redislabs.com:16315");
-            Environment.SetEnvironmentVariable("REDIS_PASSWORD", "w1GUSHyhBtNVwEjk6EutAXYyI1dO6IKe");
 
             services.AddControllers();
             services.AddSwaggerGen(c =>
@@ -64,7 +62,6 @@ namespace BasicRedisChat
                     redisConnectionUrl = $"{redisHost}:{redisPort}";
                 }
                 redis = ConnectionMultiplexer.Connect(redisConnectionUrl);
-
                 services.AddSingleton<IConnectionMultiplexer>(redis);
             }            
 

@@ -16,17 +16,17 @@ namespace BasicRedisChat.BLL.DbContext
         public static async Task Seed(IServiceScope serviceScope)
         {
             var redis = serviceScope.ServiceProvider.GetService<IConnectionMultiplexer>();
-            var database = redis.GetDatabase();
+            var redisDatabase = redis.GetDatabase();
             // We store a counter for the total users and increment it on each register
-            var totalUsersKeyExist = await database.KeyExistsAsync("total_users");
+            var totalUsersKeyExist = await redisDatabase.KeyExistsAsync("total_users");
             if (!totalUsersKeyExist)
             {
                 // This counter is used for the id
-                await database.StringSetAsync("total_users", 0);
+                await redisDatabase.StringSetAsync("total_users", 0);
                 // Some rooms have pre-defined names. When the clients attempts to fetch a room, an additional lookup
                 // is handled to resolve the name.
                 // Rooms with private messages don't have a name
-                await database.StringSetAsync("room:0:name", "General");
+                await redisDatabase.StringSetAsync("room:0:name", "General");
 
                 // Create demo data with the default users
                 {
@@ -57,7 +57,7 @@ namespace BasicRedisChat.BLL.DbContext
                             Message = content,
                             RoomId = roomId
                         };
-                        await database.SortedSetAddAsync(roomKey, JsonSerializer.Serialize(message), message.Date);
+                        await redisDatabase.SortedSetAddAsync(roomKey, JsonSerializer.Serialize(message), message.Date);
                     });
 
                     var createUser = new Func<string, string, Task<User>>(async (string username, string password) =>
@@ -65,15 +65,15 @@ namespace BasicRedisChat.BLL.DbContext
                         var usernameKey = $"username:{username}";
                         // Yeah, bcrypt generally ins't used in .NET, this one is mainly added to be compatible with Node and Python demo servers.
                         var hashedPassword = BCrypt.Net.BCrypt.HashPassword(password);
-                        var nextId = await database.StringIncrementAsync("total_users");
+                        var nextId = await redisDatabase.StringIncrementAsync("total_users");
                         var userKey = $"user:{nextId}";
-                        await database.StringSetAsync(usernameKey, userKey);
-                        await database.HashSetAsync(userKey, new HashEntry[] {
+                        await redisDatabase.StringSetAsync(usernameKey, userKey);
+                        await redisDatabase.HashSetAsync(userKey, new HashEntry[] {
                             new HashEntry("username", username),
                             new HashEntry("password", hashedPassword)
                         });
 
-                        await database.SetAddAsync($"user:{nextId}:rooms", "0");
+                        await redisDatabase.SetAddAsync($"user:{nextId}:rooms", "0");
 
                         return new User()
                         {
@@ -94,15 +94,15 @@ namespace BasicRedisChat.BLL.DbContext
                     {
                         var roomId = getPrivateRoomId(user1, user2);
 
-                        await database.SetAddAsync($"user:{user1}:rooms", roomId);
-                        await database.SetAddAsync($"user:{user2}:rooms", roomId);
+                        await redisDatabase.SetAddAsync($"user:{user1}:rooms", roomId);
+                        await redisDatabase.SetAddAsync($"user:{user2}:rooms", roomId);
 
                         return new ChatRoom()
                         {
                             Id = roomId,
                             Names = new List<string>{
-                                (await database.HashGetAsync($"user:{user1}", "username")).ToString(),
-                                (await database.HashGetAsync($"user:{user2}", "username")).ToString(),
+                                (await redisDatabase.HashGetAsync($"user:{user1}", "username")).ToString(),
+                                (await redisDatabase.HashGetAsync($"user:{user2}", "username")).ToString(),
                             }
                         };
                     });

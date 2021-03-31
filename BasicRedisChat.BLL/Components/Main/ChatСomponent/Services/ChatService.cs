@@ -97,7 +97,6 @@ namespace BasicRedisChat.BLL.Components.Main.ChatСomponent.Services
 
         public async Task SendMessage(UserDto user, ChatRoomMessage message)
         {
-            // TODO: Store the message in db
             await _database.SetAddAsync("online_users", message.From);
             var roomKey = $"room:{message.RoomId}";
             await _database.SortedSetAddAsync(roomKey, JsonConvert.SerializeObject(message), (double)message.Date);

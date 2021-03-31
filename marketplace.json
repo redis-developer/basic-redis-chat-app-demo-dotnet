@@ -8,10 +8,13 @@
   "hosted_url": "",
   "quick_deploy": "true",
   "deploy_buttons": [
-    
+    {
+      "heroku": "https://heroku.com/deploy?template=https://github.com/redis-developer/basic-redis-chat-app-demo-dotnet"
+    }
   ],
-  "language": ["C#", "JavaScript", "HTML", "CSS"],
-  "redis_commands": ["AUTH",
+  "language": ["C#"],
+  "redis_commands": [
+    "AUTH",
     "INCR",
     "DECR",
     "HMSET",
@@ -28,7 +31,8 @@
     "SMEMBERS",
     "SREM",
     "PUBLISH",
-    "SUBSCRIBE"],
+    "SUBSCRIBE"
+  ],
   "redis_features": ["PubSub"],
   "redis_modules": [],
   "app_image_urls": [

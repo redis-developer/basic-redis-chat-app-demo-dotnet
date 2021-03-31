@@ -9,8 +9,6 @@ namespace BasicRedisChat.BLL.Components.Main.ChatСomponent.Entities
     public class ChatRoom : BaseEntity
     {
         public string Id { get; set; }
-
         public IEnumerable<string> Names { get; set; }
-        //public string Name { get; set; }
     }
 }
