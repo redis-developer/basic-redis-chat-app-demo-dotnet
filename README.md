@@ -1,8 +1,8 @@
 # Basic Redis Chat App Demo C# (.Net Core 5)
 Showcases how to impliment chat app in .Net Core, SignalR and Redis. This example uses **pub/sub** feature combined with **server-side events** for implementing the message communication between client and server.
 
-<a href="https://raw.githubusercontent.com/redis-developer/basic-redis-chat-app-demo-dotnet/main/docs/screenshot000.png?raw=true"><img src="https://raw.githubusercontent.com/redis-developer/basic-redis-chat-app-demo-dotnet/main/docs/screenshot000.png?raw=true" width="100%" width="50%"></a>
-<a href="https://raw.githubusercontent.com/redis-developer/basic-redis-chat-app-demo-dotnet/main/docs/screenshot001.png?raw=true"><img src="https://raw.githubusercontent.com/redis-developer/basic-redis-chat-app-demo-dotnet/main/docs/screenshot001.png?raw=true" width="100%" width="50%"></a>
+<a href="https://raw.githubusercontent.com/redis-developer/basic-redis-chat-app-demo-dotnet/main/docs/screenshot000.png?raw=true"><img src="https://raw.githubusercontent.com/redis-developer/basic-redis-chat-app-demo-dotnet/main/docs/screenshot000.png?raw=true" width="49%"></a>
+<a href="https://raw.githubusercontent.com/redis-developer/basic-redis-chat-app-demo-dotnet/main/docs/screenshot001.png?raw=true"><img src="https://raw.githubusercontent.com/redis-developer/basic-redis-chat-app-demo-dotnet/main/docs/screenshot001.png?raw=true" width="49%"></a>
 
 
 ## Technical Stacks
@@ -57,13 +57,17 @@ The real-time functionality is handled by **Server Sent Events** for server->cli
     - Each room has a name associated with it
   - **Online** set is global for all users is used for keeping track on which user is online.
 
-**User** hash set is accessed by key `user:{userId}`. The data for it stored with `HSET key field data`. User id is calculated by incrementing the `total_users` key (`INCR total_users`)
+* User hash set is accessed by key `user:{userId}`. The data for it stored with `HSET key field data`. User id is calculated by incrementing the `total_users`.
+    * E.g `INCR total_users`
 
-**Username** is stored as a separate key (`username:{username}`) which returns the userId for quicker access and stored with `SET username:{username} {userId}`.
+* Username is stored as a separate key (`username:{username}`) which returns the userId for quicker access.
+    * E.g `SET username:Alex 4`
 
-**Rooms** which user belongs too are stored at `user:{userId}:rooms` as a set of room ids. A room is added by `SADD user:{userId}:rooms {roomId}` command.
+* Rooms which user belongs too are stored at `user:{userId}:rooms` as a set of room ids. 
+    * E.g `SADD user:Alex:rooms 1`
 
-**Messages** are stored at `room:{roomId}` key in a sorted set (as mentioned above). They are added with `ZADD room:{roomId} {timestamp} {message}` command. Message is serialized to an app-specific JSON string.
+* Messages are stored at `room:{roomId}` key in a sorted set (as mentioned above). They are added with `ZADD room:{roomId} {timestamp} {message}` command. Message is serialized to an app-specific JSON string.
+    * E.g `ZADD room:0 1617197047 { "From": "2", "Date": 1617197047, "Message": "Hello", "RoomId": "1:2" }`
 
 ### How the data is accessed:
 
