@@ -8,10 +8,6 @@
     "REDIS_PASSWORD": {
       "description": "Redis server password",
       "required": true
-    },
-    "PORT": {
-      "description": "Public port",
-      "value": 80
     }
   }
 }
