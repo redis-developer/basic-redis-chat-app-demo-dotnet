@@ -1,18 +1,17 @@
 {
-    "name": "Basic Redis Chat App Demo .Net Core 5",
-    "stack": "container",
-    "env": {
-        "REDIS_ENDPOINT_URL": {
-            "description": "Redis server host:port, ex: 127.0.0.1:6379",
-            "required": true
-        },
-        "REDIS_PASSWORD": {
-            "description": "Redis server password",
-            "required": true
-        },
-        "PORT": {
-            "description": "Public port",
-            "value": 80
-        }
+  "name": "Basic Redis Chat App Demo .Net Core 5",
+  "env": {
+    "REDIS_ENDPOINT_URL": {
+      "description": "Redis server host:port, ex: 127.0.0.1:6379",
+      "required": true
+    },
+    "REDIS_PASSWORD": {
+      "description": "Redis server password",
+      "required": true
+    },
+    "PORT": {
+      "description": "Public port",
+      "value": 80
     }
+  }
 }
