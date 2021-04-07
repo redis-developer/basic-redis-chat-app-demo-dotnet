@@ -305,3 +305,11 @@ dotnet run
         <img src="https://www.herokucdn.com/deploy/button.svg" alt="Deploy to Heorku" />
     </a>
 </p>
+
+#### Deploy to Google Cloud
+
+<p>
+    <a href="https://deploy.cloud.run" target="_blank">
+        <img src="https://deploy.cloud.run/button.svg" alt="Run on Google Cloud" width="150px"/>
+    </a>
+</p>
