@@ -36,14 +36,14 @@ namespace BasicRedisChat.Controllers
         /// </summary>
         [HttpPost("login")]
         [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(UserDto))]
-        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
         public async Task<IActionResult> Login(UserLoginDto userLoginDto)
         {
             
             var user = await securityService.Login(userLoginDto);
             if (user == null)
             {
-                return new NotFoundResult();
+                return Unauthorized();
             }
 
             var res = user.ToDto<UserDto>();

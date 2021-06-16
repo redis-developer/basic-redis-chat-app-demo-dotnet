@@ -1,5 +1,4 @@
 ﻿using BasicRedisChat.BLL.Base.Service;
-using BasicRedisChat.BLL.Components.Main.ChatСomponent.Dtos;
 using BasicRedisChat.BLL.Components.Main.ChatСomponent.Entities;
 using BasicRedisChat.BLL.Components.Main.ChatСomponent.Services.Interfaces;
 using BasicRedisChat.BLL.Components.Main.UserСomponent.Dtos;
@@ -7,8 +6,6 @@ using Newtonsoft.Json;
 using StackExchange.Redis;
 using System;
 using System.Collections.Generic;
-using System.Text;
-using System.Text.Json;
 using System.Threading.Tasks;
 
 namespace BasicRedisChat.BLL.Components.Main.ChatСomponent.Services

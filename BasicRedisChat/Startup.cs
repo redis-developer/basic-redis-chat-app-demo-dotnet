@@ -1,25 +1,24 @@
-using System;
-using System.IO;
-using System.Reflection;
+using AutoMapper;
+using BasicRedisChat.BLL.Base.Service;
+using BasicRedisChat.BLL.DbContext;
+using BasicRedisChat.BLL.Helpers;
+using BasicRedisChat.BLL.Hubs;
+using BasicRedisChat.Configs;
 using Microsoft.AspNetCore.Builder;
+using Microsoft.AspNetCore.DataProtection;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.SignalR;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.FileProviders;
 using Microsoft.Extensions.Hosting;
 using Microsoft.OpenApi.Models;
-using StackExchange.Redis;
-using Microsoft.AspNetCore.DataProtection;
-using BasicRedisChat.BLL.Hubs;
-using Microsoft.AspNetCore.SignalR;
-using BasicRedisChat.Configs;
-using AutoMapper;
-using BasicRedisChat.BLL.Helpers;
-using System.Text.Json;
-using BasicRedisChat.BLL.DbContext;
-using BasicRedisChat.BLL.Base.Service;
 using Newtonsoft.Json;
+using StackExchange.Redis;
+using System;
+using System.IO;
+using System.Reflection;
 
 namespace BasicRedisChat
 {
