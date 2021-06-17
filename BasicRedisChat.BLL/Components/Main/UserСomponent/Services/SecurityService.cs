@@ -25,7 +25,7 @@ namespace BasicRedisChat.BLL.Components.Main.UserСomponent.Services
             if (userExists)
             {
                 var userKey = (await _database.StringGetAsync(usernameKey)).ToString();
-                var userId = Int32.Parse(userKey.Split(':').Last());
+                var userId = int.Parse(userKey.Split(':').Last());
                 return  new User()
                 {
                     Username = userLoginDto.Username,

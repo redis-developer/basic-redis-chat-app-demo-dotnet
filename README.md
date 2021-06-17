@@ -1,17 +1,17 @@
 # Basic Redis Chat App Demo C# (.Net Core 5)
 
-Showcases how to impliment chat app in .Net Core, SignalR and Redis. This example uses **pub/sub** feature combined with **server-side events** for implementing the message communication between client and server.
+Showcases how to implement chat app with ASP.NET Core, SignalR and Redis. This example uses the [pub/sub](https://redis.io/topics/pubsub) feature combined with Websockets from [SignalR](https://docs.microsoft.com/en-us/aspnet/core/fundamentals/websockets?view=aspnetcore-5.0#signalr) for implementing the message communication between client and server.
 
 <a href="https://github.com/redis-developer/basic-redis-chat-app-demo-dotnet/raw/main/docs/screenshot000.png"><img src="https://github.com/redis-developer/basic-redis-chat-app-demo-dotnet/raw/main/docs/screenshot000.png" width="49%"></a>
 <a href="https://github.com/redis-developer/basic-redis-chat-app-demo-dotnet/raw/main/docs/screenshot001.png"><img src="https://github.com/redis-developer/basic-redis-chat-app-demo-dotnet/raw/main/docs/screenshot001.png" width="49%"></a>
 
-# Overview video
+## Overview video
 
 Here's a short video that explains the project and how it uses Redis:
 
 [![Watch the video on YouTube](https://github.com/redis-developer/basic-redis-chat-app-demo-dotnet/raw/main/docs/YTThumbnail.png)](https://www.youtube.com/watch?v=miK7xDkDXF0)
 
-## Technical Stacks
+## Technical Stack
 
 - Frontend - _React_, _Socket_ (@microsoft/signalr)
 - Backend - _.Net Core 5.0_, _Redis_ (Microsoft.Extensions.Caching.StackExchangeRedis)
@@ -22,7 +22,7 @@ Here's a short video that explains the project and how it uses Redis:
 
 #### User
 
-```C#
+```csharp
 public class User : BaseEntity
 {
   public int Id { get; set; }
@@ -33,7 +33,7 @@ public class User : BaseEntity
 
 #### ChatRoom
 
-```C#
+```csharp
 public class ChatRoom : BaseEntity
 {
   public string Id { get; set; }
@@ -43,7 +43,7 @@ public class ChatRoom : BaseEntity
 
 #### ChatRoomMessage
 
-```C#
+```csharp
 public class ChatRoomMessage : BaseEntity
 {
   public string From { get; set; }
@@ -109,7 +109,7 @@ Redis is used mainly as a database to keep the user/messages data and for sendin
 
 #### Code Example: Prepare User Data in Redis HashSet
 
-```C#
+```csharp
 var usernameKey = $"username:{username}";
 // Yeah, bcrypt generally ins't used in .NET, this one is mainly added to be compatible with Node and Python demo servers.
 var hashedPassword = BCrypt.Net.BCrypt.HashPassword(password);
@@ -150,7 +150,7 @@ Each user has a set of rooms associated with them.
 
 #### Code Example: Get all My Rooms
 
-```C#
+```csharp
 //fetch all my rooms
 var roomIds = await _database.SetMembersAsync($"user:{userId}:rooms");
 var rooms = new List<ChatRoom>();
@@ -219,7 +219,7 @@ Pub/sub allows connecting multiple servers written in different platforms withou
 
 #### Code Example: Send Message
 
-```C#
+```csharp
 public async Task SendMessage(UserDto user, ChatRoomMessage message)
 {
   await _database.SetAddAsync("online_users", message.From);
@@ -259,7 +259,7 @@ Note we send additional data related to the type of the message and the server i
 
 The session data is stored in Redis by utilizing the [**StackExchange.Redis**](https://github.com/StackExchange/StackExchange.Redis) client.
 
-```C#
+```csharp
 services
     .AddDataProtection()
     .PersistKeysToStackExchangeRedis(redis, "DataProtectionKeys");
@@ -282,23 +282,15 @@ services.AddSession(options =>
 #### Write in environment variable or Dockerfile actual connection to Redis:
 
 ```
-   REDIS_ENDPOINT_URL = "Redis server URI"
+   REDIS_ENDPOINT_URL = "Redis server URI:PORT_NUMBER"
    REDIS_PASSWORD = "Password to the server"
-```
-
-#### Run frontend
-
-```sh
-cd client
-yarn install
-yarn start
 ```
 
 #### Run backend
 
+From the _BasicRedisChat_ Directory execute:
+
 ```sh
-dotnet restore
-dotnet build
 dotnet run
 ```
 

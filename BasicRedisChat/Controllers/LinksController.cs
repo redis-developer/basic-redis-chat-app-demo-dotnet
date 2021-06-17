@@ -1,6 +1,7 @@
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.FileProviders;
+using System.IO;
 using System.Text.Json;
+using System.Threading.Tasks;
 
 namespace BasicRedisChat.Controllers
 {
@@ -13,24 +14,13 @@ namespace BasicRedisChat.Controllers
             public string github { get; set; }
         }
 
-        private readonly LinksObject _links;
-        public LinksController(IFileProvider fileProvider)
-        {
-            var contents = fileProvider.GetFileInfo("repo.json");
-            var stream = contents.CreateReadStream();
-            var bytes = new byte[stream.Length];
-            stream.Read(bytes, 0, (int)stream.Length);
-            stream.Close();
-            _links = JsonSerializer.Deserialize<LinksObject>(System.Text.Encoding.UTF8.GetString(bytes));
-        }
-
         /// <summary>
         /// This one outputs the url this demo is hosted at, for specifying the GitHub link url.
         /// </summary>
         [HttpGet]
-        public LinksObject Get()
+        public async Task<LinksObject> Get()
         {
-            return _links;
+            return JsonSerializer.Deserialize<LinksObject>(await File.ReadAllTextAsync("repo.json"));
         }
     }
 }

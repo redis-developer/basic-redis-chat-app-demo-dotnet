@@ -16,11 +16,11 @@ namespace BasicRedisChat.Controllers
     /// </summary>
     public class RoomsController : ApiController
     {
-        private readonly IChatService chatService;
+        private readonly IChatService _chatService;
 
         public RoomsController(IChatService chatService)
         {
-            this.chatService = chatService;
+            _chatService = chatService;
         }
 
         /// <summary>
@@ -29,7 +29,7 @@ namespace BasicRedisChat.Controllers
         [HttpGet("user/{userId}")]
         public async Task<IActionResult> GetRoom(int userId = 0)
         {
-            var rooms = await chatService.GetRooms(userId);
+            var rooms = await _chatService.GetRooms(userId);
             return Ok(rooms.Select(x => x.ToDto<ChatRoomDto>()));
         }
 
@@ -39,7 +39,7 @@ namespace BasicRedisChat.Controllers
         [HttpGet("messages/{roomId}")]
         public async Task<IActionResult> GetMessages(string roomId = "0", int offset = 0, int size = 50)
         {
-            var messages = await chatService.GetMessages(roomId, offset, size);
+            var messages = await _chatService.GetMessages(roomId, offset, size);
             return Ok(messages.Select(x => x.ToDto<ChatRoomMessageDto>()));
         }
     }
