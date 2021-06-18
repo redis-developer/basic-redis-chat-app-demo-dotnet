@@ -1,5 +1,5 @@
 {
-  "app_name": "Basic .Net Core Redis chat",
+  "app_name": "Basic .NET Core Redis chat",
   "description": "Showcases how to impliment chat app in .NET Core, SignalR and Redis",
   "type": "App",
   "contributed_by": "Redis Labs",
