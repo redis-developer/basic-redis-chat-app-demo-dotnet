@@ -61,16 +61,16 @@ const useSocket = (user, dispatch, onLogOut) => {
    */
   useEffect(() => {
     if (connected && user) {
-      socket.on("user.connected", (newUser) => {
-        updateUser(newUser, dispatch, `${newUser.username} connected`);
+      socket.on("user.connected", (username) => {
+        updateUser(username, dispatch, `${username} connected`);
       });
-      socket.on("user.disconnected", (newUser) =>
-        updateUser(newUser, dispatch, `${newUser.username} left`)
-      );
+      socket.on("user.disconnected", (username) => {
+        updateUser(username, dispatch, `${username} left`);
+      });
       socket.on("message", (message) => {
         /** Set user online */
         message = JSON.parse(message);
-        
+
         dispatch({
           type: "make user online",
           payload: message.from,
