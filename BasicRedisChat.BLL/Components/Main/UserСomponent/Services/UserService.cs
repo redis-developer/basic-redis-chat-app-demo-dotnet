@@ -55,16 +55,14 @@ namespace BasicRedisChat.BLL.Components.Main.UserСomponent.Services
         {
             await _database.SetAddAsync("online_users", user.Id);
             user.Online = true;
-            await PublishMessage("user.connected", user);
+            await PublishMessage("user.connected", user.Username);
         }
 
         public async Task OnStopSession(UserDto user)
         {
             await _database.SetRemoveAsync("online_users", user.Id);
             user.Online = false;
-            await PublishMessage("user.disconnected", user);
+            await PublishMessage("user.disconnected", user.Username);
         }
     }
-
-    
 }
