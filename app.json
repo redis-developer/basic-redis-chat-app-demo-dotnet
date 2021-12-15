@@ -1,5 +1,13 @@
 {
   "name": "Basic Redis Chat App Demo .Net Core 5",
+  "logo": "https://redis.io/images/redis-white.png",
+  "keywords": ["python", "py", "redis"],
+  "addons": ["rediscloud:30"],
+  "buildpacks": [
+    {
+      "url": "heroku/python"
+    }
+   ]
   "stack": "container",
   "env": {
     "REDIS_ENDPOINT_URL": {
@@ -12,3 +20,6 @@
     }
   }
 }
+
+
+
