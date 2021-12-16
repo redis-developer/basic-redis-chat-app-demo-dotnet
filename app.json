@@ -1,13 +1,22 @@
 {
   "name": "Basic Redis Chat App Demo .Net Core 5",
-  "repository": "https://github.com/redis-developer/basic-redis-chat-app-demo-dotnet",
   "logo": "https://redis.io/images/redis-white.png",
-  "keywords": [".NET", "dot net ", "redis"],
-  "addons": ["rediscloud:30"]
+  "keywords": ["dotnet", "redis", ".NET"],
+  "addons": ["rediscloud:30"],
   "buildpacks": [
-      "url": "heroku/dotnetcore"
+    {
+      "url": "heroku/dotnet"
+    }
    ]
+  "stack": "container",
+  "env": {
+    "REDIS_ENDPOINT_URL": {
+      "description": "Redis server host:port, ex: 127.0.0.1:6379",
+      "required": true
+    },
+    "REDIS_PASSWORD": {
+      "description": "Redis server password",
+      "required": true
+    }
+  }
 }
-
-
-
