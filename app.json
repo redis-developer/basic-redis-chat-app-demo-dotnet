@@ -2,12 +2,7 @@
   "name": "Basic Redis Chat App Demo .Net Core 5",
   "logo": "https://redis.io/images/redis-white.png",
   "keywords": [".NET", "dot net ", "redis"],
-  "addons": ["rediscloud:30"],
-  "buildpacks": [
-    {
-      "url": "heroku/dotnetcore"
-    }
-   ]
+  "addons": ["rediscloud:30"]
 }
   
 
