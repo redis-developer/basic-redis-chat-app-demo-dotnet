@@ -7,7 +7,7 @@
     {
       "url": "heroku/python"
     }
-   ]
+   ],
   "stack": "container",
   "env": {
     "REDIS_ENDPOINT_URL": {
