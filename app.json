@@ -1,5 +1,6 @@
 {
   "name": "Basic Redis Chat App Demo .Net Core 5",
+  "repository": "https://github.com/redis-developer/basic-redis-chat-app-demo-dotnet",
   "logo": "https://redis.io/images/redis-white.png",
   "keywords": [".NET", "dot net ", "redis"],
   "addons": ["rediscloud:30"]
