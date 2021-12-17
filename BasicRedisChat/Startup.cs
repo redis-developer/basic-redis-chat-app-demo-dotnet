@@ -47,22 +47,33 @@ namespace BasicRedisChat
             ConnectionMultiplexer redis = null;
             string redisConnectionUrl = null;
             {
-                var redisEndpointUrl = (Environment.GetEnvironmentVariable("REDIS_ENDPOINT_URL") ?? "127.0.0.1:6379").Split(':');
-                var redisHost = redisEndpointUrl[0];
-                var redisPort = redisEndpointUrl[1];
+                var redisSettings = new RedisSettings();
+                ConfigurationBinder.Bind(Configuration.GetSection("RedisSettings"), redisSettings);
 
-                var redisPassword = Environment.GetEnvironmentVariable("REDIS_PASSWORD");
-                if (redisPassword != null)
+                if (redisSettings != null)
                 {
-                    redisConnectionUrl = $"{redisHost}:{redisPort},password={redisPassword}";
+                    redisConnectionUrl = $"{redisSettings.Url}:{redisSettings.Port},password={redisSettings.Password}";
                 }
                 else
                 {
-                    redisConnectionUrl = $"{redisHost}:{redisPort}";
+                    var redisEndpointUrl = (Environment.GetEnvironmentVariable("REDIS_ENDPOINT_URL") ?? "127.0.0.1:6379").Split(':');
+                    var redisHost = redisEndpointUrl[0];
+                    var redisPort = redisEndpointUrl[1];
+
+                    var redisPassword = Environment.GetEnvironmentVariable("REDIS_PASSWORD");
+                    if (redisPassword != null)
+                    {
+                        redisConnectionUrl = $"{redisHost},password={redisPassword}";
+                    }
+                    else
+                    {
+                        redisConnectionUrl = $"{redisHost}:{redisPort}";
+                    }
                 }
+
                 redis = ConnectionMultiplexer.Connect(redisConnectionUrl);
                 services.AddSingleton<IConnectionMultiplexer>(redis);
-            }            
+            }
 
             services
                 .AddDataProtection()

@@ -288,6 +288,11 @@ services.AddSession(options =>
 
 #### Run backend
 
+Build the Redis container with the following command:
+```sh
+  docker-compose up -d
+```
+
 From the _BasicRedisChat_ Directory execute:
 
 ```sh
