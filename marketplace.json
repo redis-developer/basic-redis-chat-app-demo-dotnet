@@ -1,6 +1,6 @@
 {
   "app_name": "Basic .NET Core Redis chat",
-  "description": "Showcases how to impliment chat app in .NET Core, SignalR and Redis",
+  "description": "Showcases how to implement chat app in .NET Core, SignalR and Redis",
   "type": "App",
   "contributed_by": "Redis Labs",
   "repo_url": "https://github.com/redis-developer/basic-redis-chat-app-demo-dotnet",
